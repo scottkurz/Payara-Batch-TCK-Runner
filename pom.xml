@@ -54,6 +54,11 @@
             <artifactId>arquillian-container-test-spi</artifactId>    
             <version>1.6.0.Final</version>
         </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>payara-arquillian-extension-test</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -138,5 +143,6 @@
     </build>
     <modules>
         <module>../batch-tck/com.ibm.jbatch.tck</module>
+        <module>payara-arquillian-extension-test</module>
     </modules>
 </project>
