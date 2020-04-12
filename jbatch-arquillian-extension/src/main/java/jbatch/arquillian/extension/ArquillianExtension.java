@@ -1,4 +1,4 @@
-package arquillian.extension;
+package jbatch.arquillian.extension;
 
 import org.jboss.arquillian.container.test.spi.client.deployment.*;
 import org.jboss.arquillian.core.spi.LoadableExtension;
@@ -8,6 +8,6 @@ public class ArquillianExtension implements LoadableExtension {
 
     @Override
     public void register(ExtensionBuilder builder) {
-        builder.service(DeploymentScenarioGenerator.class, TestDeploymentPackager.class);
+        builder.service(DeploymentScenarioGenerator.class, MavenTestDependenciesDeploymentPackager.class);
     }
 }
