@@ -1,8 +1,7 @@
-package arquillian.extension;
+package jbatch.arquillian.extension;
 
 import java.util.*;
 import org.jboss.arquillian.container.spi.client.deployment.DeploymentDescription;
-import org.jboss.arquillian.container.test.spi.TestDeployment;
 import org.jboss.arquillian.container.test.spi.client.deployment.*;
 import org.jboss.arquillian.test.spi.TestClass;
 import org.jboss.shrinkwrap.api.Archive;
@@ -10,7 +9,7 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.resolver.api.maven.*;
 
-public class TestDeploymentPackager implements DeploymentScenarioGenerator {
+public class MavenTestDependenciesDeploymentPackager implements DeploymentScenarioGenerator {
 
     private Archive<?> generateDeployment() {
         MavenResolvedArtifact[] resolvedArtifacts = Maven.resolver().loadPomFromFile("pom.xml")
@@ -23,7 +22,6 @@ public class TestDeploymentPackager implements DeploymentScenarioGenerator {
         
         for (MavenResolvedArtifact artifact : resolvedArtifacts) {
             String groupId = artifact.getCoordinate().getGroupId();
-            String artifactId = artifact.getCoordinate().getArtifactId();
             if (groupId.startsWith("org.jboss.shrinkwrap")
                     || groupId.startsWith("arquillian.extension")
                     || groupId.startsWith("org.codehaus.plexus")
