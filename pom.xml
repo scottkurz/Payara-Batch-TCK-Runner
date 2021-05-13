@@ -46,13 +46,13 @@
         </dependency>
         <dependency>
             <groupId>fish.payara.arquillian</groupId>
-            <artifactId>arquillian-payara-server-4-remote</artifactId>
+            <artifactId>arquillian-payara-server-remote</artifactId>
             <version>1.1</version>
         </dependency>
         <dependency>
             <groupId>org.jboss.arquillian.container</groupId>
             <artifactId>arquillian-container-test-spi</artifactId>    
-            <version>1.6.0.Final</version>
+            <version>1.7.0.Alpha9</version>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
@@ -60,28 +60,17 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>io.github.zforgo.arquillian.junit5</groupId>
+            <groupId>org.jboss.arquillian.junit5</groupId>
             <artifactId>arquillian-junit5-core</artifactId>
-            <version>0.1.0-SNAPSHOT</version>
+            <version>1.7.0.Alpha9</version>
             <scope>test</scope>
-            <exclusions>
-                <exclusion>
-			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter-engine</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
+        </dependency>    
         <dependency>
-            <groupId>io.github.zforgo.arquillian.junit5</groupId>
+            <groupId>org.jboss.arquillian.junit5</groupId>
             <artifactId>arquillian-junit5-container</artifactId>
-            <version>0.1.0-SNAPSHOT</version>
-            <exclusions>
-                <exclusion>
-			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter-engine</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
+            <version>1.7.0.Alpha9</version>
+            <scope>test</scope>
+        </dependency>    
     </dependencies>
 
     <build>
