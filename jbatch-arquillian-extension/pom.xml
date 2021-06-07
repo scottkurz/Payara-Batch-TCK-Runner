@@ -4,7 +4,7 @@
     <groupId>jakarta.batch</groupId>
     <artifactId>jbatch-arquillian-extension</artifactId>
     <packaging>jar</packaging>
-    <version>1.0.2</version>
+    <version>2.0.0</version>
     
     <dependencyManagement>
         <dependencies>
@@ -27,6 +27,6 @@
             <groupId>org.jboss.shrinkwrap.resolver</groupId>
             <artifactId>shrinkwrap-resolver-depchain</artifactId>
             <type>pom</type>
-        </dependency>    
+        </dependency>
     </dependencies>
 </project>
