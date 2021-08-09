@@ -21,7 +21,7 @@
 
   <container qualifier="glassfish-auth" default="true">
   -->
-  <container qualifier="glassfish" default="true">
+ <container qualifier="glassfish-remote">
     <configuration>
       <property name="adminHost">localhost</property>
       <property name="adminHttps">true</property>
@@ -34,5 +34,18 @@
       <property name="debugRequests">true</property>
     </configuration>
   </container>
+
+
+  <container qualifier="glassfish-mgd" default="true">
+    <configuration>
+        <property name="allowConnectingToRunningServer">false</property>
+        <property name="adminHost">localhost</property>
+        <property name="adminPort">4848</property>
+        <property name="enableH2">${enableDerby:true}</property>
+        <property name="outputToConsole">true</property>
+        <property name="glassFishHome">C:\glassfish\glassfish6</property>
+    </configuration>
+  </container>
+      
 
 </arquillian>
