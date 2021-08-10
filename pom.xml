@@ -24,14 +24,14 @@
     <parent>
         <groupId>jakarta.batch</groupId>
         <artifactId>tck-parent</artifactId>
-        <version>2.0.0</version>
+        <version>2.1.0-M1-SNAPSHOT</version>
         <relativePath>../batch-tck</relativePath>
     </parent>
 
     <groupId>jakarta.batch</groupId>
     <artifactId>batch-tck-glassfish-runner</artifactId>
     <packaging>pom</packaging>
-    <version>2.0.0</version>
+    <version>2.1.0-M1-SNAPSHOT</version>
     <name>Jakarta Batch TCK Execution (using GlassFish, against TCK Maven module)</name>
 
     <properties>
