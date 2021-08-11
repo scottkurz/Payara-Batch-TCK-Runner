@@ -36,7 +36,7 @@
   </container>
 
 
-  <container qualifier="glassfish-mgd" default="true">
+  <container qualifier="glassfish-mgd">
     <configuration>
         <property name="allowConnectingToRunningServer">false</property>
         <property name="adminHost">localhost</property>
@@ -46,6 +46,19 @@
         <property name="glassFishHome">C:\glassfish\glassfish6</property>
     </configuration>
   </container>
-      
 
+  <container qualifier="liberty_managed" default="true">
+    <configuration>
+       <property name="wlpHome">C:\git\jakarta\Payara-Batch-TCK-Runner\target\liberty\wlp</property>
+       <property name="serverName">defaultServer</property>
+       <property name="httpPort">9080</property>
+       <property name="serverStartTimeout">180</property>
+       <property name="appDeployTimeout">180</property>
+       <property name="javaVmArguments">-Djava.compiler=NONE -Xdebug -Xnoagent -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=7777</property>
+       <!--
+       <property name="javaVmArguments">-Dsystem.context.root=/arquillian-managed</property>
+       -->
+    </configuration>
+  </container>
+      
 </arquillian>
