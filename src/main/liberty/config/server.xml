@@ -11,9 +11,29 @@
 
     <!-- To access this server from a remote client add a host attribute 
         to the following element, e.g. host="*" -->
-    <httpEndpoint httpPort="9080" httpsPort="9443"
-        id="defaultHttpEndpoint" />
+    <httpEndpoint httpPort="9080" httpsPort="9443" id="defaultHttpEndpoint" />
 
     <applicationMonitor updateTrigger="mbean" />
+
+    <databaseStore dataSourceRef="batchDB" id="BatchDatabaseStore"/>
+
+    <batchPersistence jobStoreRef="BatchDatabaseStore"/>
+
+    <library id="DerbyLib">
+        <fileset dir="${shared.resource.dir}" includes="derby*jar"/>
+    </library>
+
+    <dataSource id="batchDB"  type="javax.sql.XADataSource">
+        <jdbcDriver libraryRef="DerbyLib"/>
+        <properties createDatabase="create" databaseName="BATCHDB" user="user" password="pass"/>
+    </dataSource>
+
+    <dataSource id="orderDS" jndiName="jdbc/orderDB" type="javax.sql.XADataSource">
+        <jdbcDriver libraryRef="DerbyLib"/>
+        <properties createDatabase="create" databaseName="BATCHDB" user="user" password="pass"/>
+        <!--
+        <connectionManager enableSharingForDirectLookups="false"/>
+        -->
+    </dataSource>
 </server>
 
