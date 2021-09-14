@@ -36,6 +36,7 @@
 		<arquillian-payara.version>3.0.alpha1</arquillian-payara.version>
 		<payara.version>6.2021.1.Alpha1</payara.version>
 		<glassfish.version>6.2.0</glassfish.version>
+		<derby.version>10.13.1.1</derby.version>
 	</properties>
 
 	<repositories>
@@ -108,7 +109,7 @@
 		<dependency>
 			<groupId>org.apache.derby</groupId>
 			<artifactId>derby</artifactId>
-			<version>10.13.1.1</version>
+            <version>${derby.version}</version>
 			<scope>provided</scope>
 		</dependency>
 
@@ -160,12 +161,14 @@
 									<artifactId>com.ibm.jbatch.tck</artifactId>
 									<outputDirectory>${project.build.directory}/test-classes</outputDirectory>
 									<includes>testprofiles/*</includes>
+									<includes>ddls/*</includes>
 								</artifactItem>
 							</artifactItems>
 						</configuration>
 					</execution>
 				</executions>
 			</plugin>
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-failsafe-plugin</artifactId>
@@ -282,6 +285,10 @@
 				</property>
 			</activation>
 
+	<properties>
+        <db.url>${project.build.directory}/liberty/wlp/usr/servers/defaultServer/BATCHDB</db.url>
+	</properties>
+
 			<dependencies>
 				<dependency>
 					<groupId>io.openliberty.arquillian</groupId>
@@ -333,6 +340,49 @@
 							</execution>
 						</executions>
 					</plugin>
+                    <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>sql-maven-plugin</artifactId>
+                <version>1.5</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.derby</groupId>
+                        <artifactId>derby</artifactId>
+                        <version>${derby.version}</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <driver>org.apache.derby.jdbc.EmbeddedDriver</driver>
+                    <url>jdbc:derby:${db.url};create=true</url>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>create-db</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <configuration>
+                            <autocommit>true</autocommit>
+                            <srcFiles>
+                                <srcFile>${project.build.directory}/test-classes/ddls/derby.ddl.jbatch-tck.sql</srcFile>
+                            </srcFiles>
+                            <skip>${reuseDB}</skip>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>shutdown-database-so-that-test-can-run</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <configuration>
+                            <url>jdbc:derby:${db.url};shutdown=true</url>
+                            <skipOnConnectionError>true</skipOnConnectionError>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>            
 				</plugins>
 			</build>
 		</profile>
