@@ -27,7 +27,9 @@
 	<name>Jakarta Batch TCK Execution (using GlassFish, against TCK Maven module)</name>
 
 	<modules>
+        <!--
 		<module>../batch-tck/com.ibm.jbatch.tck</module>
+        -->
 		<module>jbatch-arquillian-extension</module>
 	</modules>
 
@@ -160,8 +162,7 @@
 									<groupId>jakarta.batch</groupId>
 									<artifactId>com.ibm.jbatch.tck</artifactId>
 									<outputDirectory>${project.build.directory}/test-classes</outputDirectory>
-									<includes>testprofiles/*</includes>
-									<includes>ddls/*</includes>
+                                    <includes>testprofiles/*,ddls/*</includes>
 								</artifactItem>
 							</artifactItems>
 						</configuration>
@@ -286,7 +287,7 @@
 			</activation>
 
 	<properties>
-        <db.url>${project.build.directory}/liberty/wlp/usr/servers/defaultServer/BATCHDB</db.url>
+	    <db.url>${project.build.directory}/liberty/wlp/usr/servers/defaultServer/BATCHDB</db.url>
 	</properties>
 
 			<dependencies>
@@ -354,6 +355,7 @@
                 <configuration>
                     <driver>org.apache.derby.jdbc.EmbeddedDriver</driver>
                     <url>jdbc:derby:${db.url};create=true</url>
+                    <forceMojoExecution>true</forceMojoExecution>
                 </configuration>
                 <executions>
                     <execution>
@@ -367,6 +369,7 @@
                             <srcFiles>
                                 <srcFile>${project.build.directory}/test-classes/ddls/derby.ddl.jbatch-tck.sql</srcFile>
                             </srcFiles>
+                            <onError>continue</onError>
                             <skip>${reuseDB}</skip>
                         </configuration>
                     </execution>
@@ -383,6 +386,16 @@
                     </execution>
                 </executions>
             </plugin>            
+            <plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-failsafe-plugin</artifactId>
+					<configuration>
+						<systemPropertyVariables>
+                            <arquillian.launch>liberty-mgd</arquillian.launch>
+						</systemPropertyVariables>
+					</configuration>
+			</plugin>
+
 				</plugins>
 			</build>
 		</profile>
