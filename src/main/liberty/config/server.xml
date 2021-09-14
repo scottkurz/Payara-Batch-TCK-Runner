@@ -20,16 +20,26 @@
     <batchPersistence jobStoreRef="BatchDatabaseStore"/>
 
     <library id="DerbyLib">
-        <fileset dir="${shared.resource.dir}" includes="derby*jar"/>
+        <fileset dir="${server.config.dir}/lib/global" includes="derby*jar"/>
+    </library>
+
+    <library id="H2Lib">
+        <fileset dir="${server.config.dir}/lib/global" includes="h2*jar"/>
     </library>
 
     <dataSource id="batchDB"  type="javax.sql.XADataSource">
         <jdbcDriver libraryRef="DerbyLib"/>
+        <!--
+        <jdbcDriver libraryRef="H2Lib"/>
+        -->
         <properties createDatabase="create" databaseName="BATCHDB" user="user" password="pass"/>
     </dataSource>
 
     <dataSource id="orderDS" jndiName="jdbc/orderDB" type="javax.sql.XADataSource">
         <jdbcDriver libraryRef="DerbyLib"/>
+        <!--
+        <jdbcDriver libraryRef="H2Lib"/>
+        -->
         <properties createDatabase="create" databaseName="BATCHDB" user="user" password="pass"/>
         <!--
         <connectionManager enableSharingForDirectLookups="false"/>
